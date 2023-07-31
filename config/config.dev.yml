@@ -1,0 +1,54 @@
+system:
+  # url path prefix
+  url-path-prefix: api
+  # api version
+  api-version: v1
+  # wait timeout
+  wait-timeout: 5
+
+auth:
+  jwt-key: secret
+  # jwt expiration time (in hours)
+  expires: 72
+  # the name of the database table where the rules are stored
+  rule-table: casbin_rule
+
+logs:
+  encoding: console
+  # log storage directory path
+  path: logs
+  # log size max size
+  max-size: 50
+  # backup count
+  max-backups: 100
+  # storage day
+  max-age: 30
+  # if compress
+  compress: false
+
+database:
+  # choose to use which DBMS. this supports mysql and postgres
+  dialect: mysql
+  # account
+  username: root
+  # password
+  password: db_admin
+  # database name
+  dbname: codegpt
+  # host
+  host: 127.0.0.1
+  # port
+  port: 3306
+  # encoding
+  charset: utf8mb4
+  # collation
+  collation: utf8mb4_general_ci
+  # migration
+  migration: true
+  # if init data
+  init-data: true
+
+consul:
+  # consul address
+  address: 127.0.0.1
+  port: 8500

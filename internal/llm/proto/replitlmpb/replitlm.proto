@@ -1,0 +1,28 @@
+syntax = "proto3";
+option go_package = "./proto/replitlmpb";
+package replitlm;
+
+// The CodeGenerator service definition.
+service CodeGenerator {
+  // Send prompt to ReplitLM
+  rpc SendPrompt (CodeRequest) returns (CodeResponse) {}
+}
+
+// The request message.
+message CodeRequest {
+  string prompt = 1;
+  string lang = 2;
+}
+
+// The response message.
+message CodeResponse {
+  Result ret = 1;
+  int32 code = 2;
+  string msg = 3;
+}
+
+message Result {
+  repeated string code_list = 1;
+  int32 completion_token_num = 2;
+  int32 prompt_token_num = 3;
+}

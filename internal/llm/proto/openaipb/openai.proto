@@ -1,0 +1,22 @@
+syntax = "proto3";
+option go_package = "./proto/openaipb";
+package openai;
+
+service Chatgpt {
+  rpc Send(Message) returns (stream Answer) {}
+}
+
+message Message {
+  string content = 2;
+  Params params = 3;
+}
+
+message Answer {
+  string error = 1;
+  string content = 2;
+}
+
+message Params {
+  string model = 1;
+  float temperature = 2;
+}
