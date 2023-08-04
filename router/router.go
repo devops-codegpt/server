@@ -26,7 +26,7 @@ func setUserHandler(e *echo.Echo, c container.Container) {
 }
 
 func setRoleHandler(e *echo.Echo, c container.Container) {
-	role := handler.NewRoleHandler(c)
+	role := handler.NewRoleHandler(c, nil)
 	e.GET(config.APIRoleList, func(c echo.Context) error { return role.GetRoles(c) })
 	e.PATCH(config.APIRoleUpdate, func(c echo.Context) error { return role.UpdateRoleById(c) })
 	e.POST(config.APIRoleCreate, func(c echo.Context) error { return role.CreateRole(c) })
@@ -54,6 +54,6 @@ func setCodeHandler(e *echo.Echo, c container.Container) {
 }
 
 func setLLMHandler(e *echo.Echo, c container.Container) {
-	llm := handler.NewLLMHandler(c)
+	llm := handler.NewLLMHandler(c, nil)
 	e.GET(config.APILLMList, func(c echo.Context) error { return llm.GetLLMs(c) })
 }

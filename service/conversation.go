@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"github.com/devops-codegpt/server/container"
 	"github.com/devops-codegpt/server/internal/llm/memory"
@@ -10,6 +11,7 @@ import (
 	"github.com/devops-codegpt/server/models"
 	"github.com/devops-codegpt/server/request"
 	"github.com/devops-codegpt/server/service/discovery"
+	"github.com/devops-codegpt/server/utils"
 	"github.com/google/uuid"
 	"gorm.io/gorm"
 	"strings"
@@ -26,7 +28,7 @@ type ConversationService interface {
 	RunConversation(username string, req *request.ConversationRun, callback oc.Callback) (*models.Message, error)
 	RunConversationWS(command, prompt string, buffer *memory.Buffer, callback oc.Callback) error
 	RunBase(prompt string) (string, error)
-	DeleteByIds(ids []uuid.UUID) error
+	DeleteByIds(idsStr string) error
 	FeedbackMessage(req *request.MessageFeedback) error
 }
 
@@ -62,7 +64,7 @@ func (cs *conversationService) RunConversation(name string, req *request.Convers
 	conversation := &models.Conversation{}
 
 	err := rep.Model(&models.Conversation{}).Where("id = ?", req.ConversationId).First(conversation).Error
-	if err == gorm.ErrRecordNotFound {
+	if errors.Is(err, gorm.ErrRecordNotFound) {
 		// Create a new conversation
 		conversation.Id = req.ConversationId
 		conversation.Username = name
@@ -140,7 +142,8 @@ func (cs *conversationService) FeedbackMessage(req *request.MessageFeedback) err
 	return err
 }
 
-func (cs *conversationService) DeleteByIds(ids []uuid.UUID) error {
+func (cs *conversationService) DeleteByIds(idsStr string) error {
+	ids := utils.Str2UUIDArr(idsStr)
 	rep := cs.container.GetRepository()
 
 	// Delete conversation-related messages

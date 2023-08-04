@@ -5,7 +5,6 @@ import (
 	"bytes"
 	"embed"
 	"fmt"
-	"github.com/pkg/errors"
 	"github.com/spf13/viper"
 	"go.uber.org/zap/zapcore"
 	"os"
@@ -118,7 +117,7 @@ func readConfig(v *viper.Viper, b []byte) error {
 	v.SetConfigType(configType)
 	err := v.ReadConfig(bytes.NewReader(b))
 	if err != nil {
-		return errors.Wrap(err, "load config file failed")
+		return fmt.Errorf("load config file failed: %v", err)
 	}
 	return nil
 }

@@ -49,7 +49,7 @@ func (r *LLM) Generate(ctx context.Context, prompts []string, options ...llm.Cal
 
 var _ llm.LLM = (*LLM)(nil)
 
-func New(dailTarget string, ctr container.Container) *LLM {
+func New(dailTarget string, ctr container.Container) llm.LLM {
 	c := replitlmclient.New(dailTarget, ctr)
 	return &LLM{
 		client: c,

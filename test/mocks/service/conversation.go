@@ -11,7 +11,6 @@ import (
 	openaiclient "github.com/devops-codegpt/server/internal/llm/model/openai/openaiclient"
 	models "github.com/devops-codegpt/server/models"
 	request "github.com/devops-codegpt/server/request"
-	uuid "github.com/google/uuid"
 	gomock "go.uber.org/mock/gomock"
 )
 
@@ -39,17 +38,17 @@ func (m *MockConversationService) EXPECT() *MockConversationServiceMockRecorder 
 }
 
 // DeleteByIds mocks base method.
-func (m *MockConversationService) DeleteByIds(ids []uuid.UUID) error {
+func (m *MockConversationService) DeleteByIds(idsStr string) error {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "DeleteByIds", ids)
+	ret := m.ctrl.Call(m, "DeleteByIds", idsStr)
 	ret0, _ := ret[0].(error)
 	return ret0
 }
 
 // DeleteByIds indicates an expected call of DeleteByIds.
-func (mr *MockConversationServiceMockRecorder) DeleteByIds(ids interface{}) *gomock.Call {
+func (mr *MockConversationServiceMockRecorder) DeleteByIds(idsStr interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteByIds", reflect.TypeOf((*MockConversationService)(nil).DeleteByIds), ids)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteByIds", reflect.TypeOf((*MockConversationService)(nil).DeleteByIds), idsStr)
 }
 
 // FeedbackMessage mocks base method.

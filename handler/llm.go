@@ -34,9 +34,12 @@ func (l *llmHandler) GetLLMs(c echo.Context) error {
 	return successWithData(c, resp)
 }
 
-func NewLLMHandler(c container.Container) LLMHandler {
+func NewLLMHandler(c container.Container, s service.LLMService) LLMHandler {
+	if s == nil {
+		s = service.NewLLMService(c)
+	}
 	return &llmHandler{
 		context: c,
-		service: service.NewLLMService(c),
+		service: s,
 	}
 }

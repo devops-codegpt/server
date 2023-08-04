@@ -46,7 +46,7 @@ func (l *LLM) Generate(ctx context.Context, prompts []string, options ...llm.Cal
 
 var _ llm.LLM = (*LLM)(nil)
 
-func New(dailTarget, model string, stream bool, c container.Container, callback openaiclient.Callback) *LLM {
+func New(dailTarget, model string, stream bool, c container.Container, callback openaiclient.Callback) llm.LLM {
 	client := openaiclient.New(dailTarget, model, c, callback)
 	return &LLM{
 		client:   client,

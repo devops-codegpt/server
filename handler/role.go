@@ -1,7 +1,6 @@
 package handler
 
 import (
-	"fmt"
 	"github.com/devops-codegpt/server/container"
 	"github.com/devops-codegpt/server/request"
 	"github.com/devops-codegpt/server/response"
@@ -66,7 +65,6 @@ func (r *roleHandler) UpdateRoleById(c echo.Context) error {
 	if err := c.Bind(&req); err != nil {
 		return c.JSON(http.StatusBadRequest, req)
 	}
-	fmt.Printf("role: %+v", req)
 	roleId := utils.Str2Uint(c.Param("roleId"))
 	err := r.service.UpdateById(roleId, &req)
 	if err != nil {
@@ -75,9 +73,12 @@ func (r *roleHandler) UpdateRoleById(c echo.Context) error {
 	return success(c)
 }
 
-func NewRoleHandler(c container.Container) RoleHandler {
+func NewRoleHandler(c container.Container, s service.RoleService) RoleHandler {
+	if s == nil {
+		s = service.NewRoleService(c)
+	}
 	return &roleHandler{
 		context: c,
-		service: service.NewRoleService(c),
+		service: s,
 	}
 }

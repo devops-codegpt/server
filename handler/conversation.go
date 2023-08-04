@@ -116,8 +116,7 @@ func (ch *conversationHandler) BatchDeleteByIds(c echo.Context) error {
 	if err := c.Bind(&req); err != nil {
 		return c.JSON(http.StatusBadRequest, req)
 	}
-	ids := utils.Str2UUIDArr(req.Ids)
-	err := ch.service.DeleteByIds(ids)
+	err := ch.service.DeleteByIds(req.Ids)
 	if err != nil {
 		return failWithMsg(c, err.Error())
 	}
