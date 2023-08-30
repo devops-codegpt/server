@@ -117,7 +117,7 @@ GLOBAL OPTIONS:
 
 *codegpt-server* parameters can be set in the directory [conf](https://github.com/devops-codegpt/server/blob/main/config/).
 
-An example of configuration in [config.yml](https://github.com/devops-codegpt/server/blob/main/config/config.dev.yml):
+An example of configuration in [config.yml](https://github.com/devops-codegpt/server/blob/main/config/config.dev.yml).
 
 
 
